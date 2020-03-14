@@ -9,8 +9,7 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
 
-const email = req.body.email;
-const password = req.body.password;
+
 
 router.post('/register', (req, res) => {
     // Check to make sure nobody has already registered with a duplicate email
@@ -46,6 +45,9 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
 
+    const email = req.body.email;
+    const password = req.body.password;
+
     User.findOne({ email })
         .then(user => {
             if (!user) {
@@ -63,26 +65,26 @@ router.post('/login', (req, res) => {
         })
 })
 
-bcrypt.compare(password, user.password)
-    .then(isMatch => {
-        if (isMatch) {
-            const payload = { id: user.id, handle: user.handle };
+// bcrypt.compare(password, user.password)
+//     .then(isMatch => {
+//         if (isMatch) {
+//             const payload = { id: user.id, handle: user.handle };
 
-            jwt.sign(
-                payload,
-                keys.secretOrKey,
-                // Tell the key to expire in one hour
-                { expiresIn: 3600 },
-                (err, token) => {
-                    res.json({
-                        success: true,
-                        token: 'Bearer ' + token
-                    });
-                });
-        } else {
-            return res.status(400).json({ password: 'Incorrect password' });
-        }
-    })
+//             jwt.sign(
+//                 payload,
+//                 keys.secretOrKey,
+//                 // Tell the key to expire in one hour
+//                 { expiresIn: 3600 },
+//                 (err, token) => {
+//                     res.json({
+//                         success: true,
+//                         token: 'Bearer ' + token
+//                     });
+//                 });
+//         } else {
+//             return res.status(400).json({ password: 'Incorrect password' });
+//         }
+//     })
 
 router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
