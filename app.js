@@ -7,6 +7,7 @@ const tweets = require("./routes/api/tweets");
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+const User = require('./models/User');
 
 
 mongoose
@@ -14,7 +15,19 @@ mongoose
     .then(() => console.log("Connected to MongoDB successfully"))
     .catch(err => console.log(err));
 
+app.use(bodyParser.urlencoded ({
+    extended: false
+}));
+
+app.use(bodyParser.json());
+    
 app.get("/", (req, res) => {
+    const user = new User({
+        handle: "jim",
+        email: "jim@jim.jim",
+        password: "1234567"
+    })
+    user.save();
     res.send("Hello Iryna");
 });
 
