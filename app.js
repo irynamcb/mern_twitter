@@ -21,7 +21,7 @@ mongoose
         console.log("Connected to mongoDB");
     })
     .catch(err => console.log(err));
-// Setup the path
+
 app.get("/", (req, res) => {
     const user = new User({
         handle: "jim",
@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
-// Check the environmental variable port, if it exist, use it. Otherwise, use 5000 
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

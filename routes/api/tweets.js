@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require('mongoose');
 const passport = require("passport");
 const validateInput = require("../../validation/tweets.js");
 const Tweet = require("../../models/Tweet");
 
 
-router.get("/test", (req, res) => {
-    res.json({msg: "This is the tweet route"});
-});
+// router.get("/test", (req, res) => {
+//     res.json({msg: "This is the tweet route"});
+// });
 
 router.get("/", (req, res) => {
 Tweet
